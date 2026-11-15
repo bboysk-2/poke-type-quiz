@@ -1,0 +1,157 @@
+{
+  "version": 1,
+  "goal": "PokeAPI の画像からタイプを4択で当てる10問クイズを、Hono + TS + Atomic Design で提供する",
+  "currentTaskId": "T1",
+  "tasks": [
+    {
+      "id": "T1",
+      "title": "タイプ当てクイズ MVP の実装",
+      "status": "in_progress",
+      "steps": [
+        {
+          "text": "domain: タイプ定義・問題生成・採点・正答率を純粋関数で実装しテスト",
+          "done": true
+        },
+        {
+          "text": "infrastructure: PokeAPI リポジトリ（型ガード・キャッシュ）とメモリセッションストア",
+          "done": true
+        },
+        {
+          "text": "application: quizService（開始・回答・次へ・結果）",
+          "done": true
+        },
+        {
+          "text": "components: atoms→molecules→organisms→templates→pages を実装",
+          "done": true
+        },
+        {
+          "text": "routes/app: Hono ルーティングと createApp による依存注入、結合テスト",
+          "done": true
+        },
+        {
+          "text": "public/styles.css: デザイントークンとアニメーション",
+          "done": true
+        }
+      ],
+      "acceptanceCriteria": [
+        {
+          "text": "トップから開始すると、ランダムなポケモン画像と4つのタイプ選択肢が表示される",
+          "done": true
+        },
+        {
+          "text": "選択肢には正解タイプがちょうど1つ含まれ、残り3つはそのポケモンのタイプではない",
+          "done": true
+        },
+        {
+          "text": "回答すると正解/不正解とポケモン名・全タイプが表示される",
+          "done": true
+        },
+        {
+          "text": "10問終了後に正答率(%)と各問の結果一覧が表示される",
+          "done": true
+        },
+        {
+          "text": "pnpm verify（structure/lint/型/テスト/knip）がすべて成功する",
+          "done": true
+        },
+        {
+          "text": "依存ルール違反が ESLint で検出されることをテストで確認している",
+          "done": true
+        }
+      ],
+      "approvedBy": "user(chat request 2026-11-15)",
+      "notes": [
+        "TypeScript は 6.0 に固定（typescript-eslint が <6.1 のみ対応、TS7 は非対応）",
+        "Vitest は 3 系（Vitest 5 は Node 22+ の Map.groupBy を要求、ローカルは Node 20）",
+        "選択肢は『正解タイプ1つ＋そのポケモンが持たないタイプ3つ』。複合タイプはどちらを選んでも正解",
+        "セッションはプロセス内メモリ（MemoryQuizSessionStore）。複数インスタンス運用時は QuizSessionStore の別実装が必要"
+      ]
+    }
+  ],
+  "log": [
+    {
+      "at": "2026-11-15T07:16:45.023Z",
+      "event": "goal set"
+    },
+    {
+      "at": "2026-11-15T07:16:45.315Z",
+      "event": "T1 added"
+    },
+    {
+      "at": "2026-11-15T07:16:45.590Z",
+      "event": "T1 planned (6 steps, 6 criteria)"
+    },
+    {
+      "at": "2026-11-15T07:16:45.856Z",
+      "event": "T1 approved by user(chat request 2026-11-15)"
+    },
+    {
+      "at": "2026-11-15T07:16:46.121Z",
+      "event": "T1 started"
+    },
+    {
+      "at": "2026-11-15T07:18:35.746Z",
+      "event": "T1 step 1 done"
+    },
+    {
+      "at": "2026-11-15T07:18:36.016Z",
+      "event": "T1 step 2 done"
+    },
+    {
+      "at": "2026-11-15T07:18:36.283Z",
+      "event": "T1 step 3 done"
+    },
+    {
+      "at": "2026-11-15T07:21:16.421Z",
+      "event": "T1 step 4 done"
+    },
+    {
+      "at": "2026-11-15T07:21:16.698Z",
+      "event": "T1 step 5 done"
+    },
+    {
+      "at": "2026-11-15T07:21:16.965Z",
+      "event": "T1 step 6 done"
+    },
+    {
+      "at": "2026-11-15T07:33:45.322Z",
+      "event": "T1 note"
+    },
+    {
+      "at": "2026-11-15T07:33:45.598Z",
+      "event": "T1 note"
+    },
+    {
+      "at": "2026-11-15T07:33:45.884Z",
+      "event": "T1 note"
+    },
+    {
+      "at": "2026-11-15T07:33:46.188Z",
+      "event": "T1 note"
+    },
+    {
+      "at": "2026-11-15T07:34:37.537Z",
+      "event": "T1 criteria 1 verified"
+    },
+    {
+      "at": "2026-11-15T07:34:37.807Z",
+      "event": "T1 criteria 2 verified"
+    },
+    {
+      "at": "2026-11-15T07:34:38.079Z",
+      "event": "T1 criteria 3 verified"
+    },
+    {
+      "at": "2026-11-15T07:34:38.361Z",
+      "event": "T1 criteria 4 verified"
+    },
+    {
+      "at": "2026-11-15T07:34:38.636Z",
+      "event": "T1 criteria 5 verified"
+    },
+    {
+      "at": "2026-11-15T07:34:38.910Z",
+      "event": "T1 criteria 6 verified"
+    }
+  ]
+}

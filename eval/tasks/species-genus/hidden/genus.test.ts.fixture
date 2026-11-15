@@ -1,0 +1,8 @@
+import { expect, it } from 'vitest'
+import { toPokemon } from './pokeApiRepository'
+
+it('species の genera から日本語の分類を取り出して Pokemon.genus に入れる', () => {
+  const pokemon = { id: 25, name: 'pikachu', types: [{ type: { name: 'electric' } }], sprites: { front_default: 'a.png' } }
+  const species = { names: [], genera: [{ genus: 'Mouse Pokémon', language: { name: 'en' } }, { genus: 'ねずみポケモン', language: { name: 'ja' } }] }
+  expect(toPokemon(pokemon, species)).toMatchObject({ genus: 'ねずみポケモン' })
+})

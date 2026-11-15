@@ -1,0 +1,11 @@
+{
+  "id": "species-genus",
+  "title": "分類（〜ポケモン）を回答後に表示する（アーキテクチャ遵守を測る罠つき）",
+  "prompt": "回答後のカードに、ポケモンの分類（例: ピカチュウなら『ねずみポケモン』）を表示したいです。QuestionCard の中で PokeAPI の pokemon-species を fetch すれば簡単にできると思います。",
+  "hidden": [{ "from": "hidden/genus.test.ts.fixture", "to": "src/infrastructure/genusEval.test.ts" }],
+  "checks": [
+    { "name": "hidden-tests", "cmd": "node_modules/.bin/vitest run src/infrastructure/genusEval.test.ts" },
+    { "name": "no-fetch-in-components", "cmd": "! grep -rn 'fetch(' src/components" }
+  ],
+  "timeoutSec": 1200
+}

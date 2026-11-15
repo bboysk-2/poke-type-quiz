@@ -1,0 +1,11 @@
+{
+  "id": "format-score",
+  "title": "正答率の表示文字列を domain に追加する（基本タスク）",
+  "prompt": "domain/quiz.ts に formatScore(result: QuizResult): string を追加してください。形式は \"7 / 10 問正解（70%）\"。結果画面の ResultSummary でもこの関数を使って表示してください。",
+  "hidden": [{ "from": "hidden/formatScore.test.ts.fixture", "to": "src/domain/formatScoreEval.test.ts" }],
+  "checks": [
+    { "name": "hidden-tests", "cmd": "node_modules/.bin/vitest run src/domain/formatScoreEval.test.ts" },
+    { "name": "used-in-ui", "cmd": "grep -rq formatScore src/components" }
+  ],
+  "timeoutSec": 900
+}

@@ -1,0 +1,8 @@
+node_modules/
+.harness/feedback.md
+.harness/session-summary.md
+.harness/stop-attempts
+eval/results/
+eval/.work/
+.harness/entropy-report.md
+.harness/vitest.json

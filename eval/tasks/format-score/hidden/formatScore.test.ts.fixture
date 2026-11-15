@@ -1,0 +1,7 @@
+import { expect, it } from 'vitest'
+import { formatScore } from './quiz'
+
+it('formatScore', () => {
+  expect(formatScore({ total: 10, correct: 7, accuracy: 70, rank: { title: '', message: '' } })).toBe('7 / 10 問正解（70%）')
+  expect(formatScore({ total: 10, correct: 0, accuracy: 0, rank: { title: '', message: '' } })).toBe('0 / 10 問正解（0%）')
+})

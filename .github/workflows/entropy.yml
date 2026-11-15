@@ -1,0 +1,48 @@
+# エントロピー管理（ガベージコレクション・エージェント）。週次でコードベースの「汚れ」を測り、
+# 指摘があれば janitor エージェントに小さな掃除 PR を作らせる。PR は ci.yml のハードゲートを通過しないとマージできない。
+name: entropy
+on:
+  schedule:
+    - cron: '0 0 * * 1' # 毎週月曜 09:00 JST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    outputs:
+      dirty: ${{ steps.entropy.outcome == 'failure' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - id: entropy
+        run: pnpm entropy --strict
+        continue-on-error: true
+      - uses: actions/upload-artifact@v4
+        with: { name: entropy-report, path: .harness/entropy-report.md }
+
+  janitor:
+    needs: measure
+    if: needs.measure.outputs.dirty == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      # 要: リポジトリ secret ANTHROPIC_API_KEY
+      - uses: anthropics/claude-code-action@v1
+        env:
+          HARNESS_AUTONOMOUS: '1'
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            janitor サブエージェント（.claude/agents/janitor.md）として振る舞い、`pnpm entropy` の指摘を最大 3 件掃除してください。
+            作業は chore/entropy-<日付> ブランチで行い、pnpm verify が通ったら PR を作成してください。振る舞いを変える変更は禁止です。

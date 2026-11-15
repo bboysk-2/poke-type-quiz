@@ -1,0 +1,6 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["src/server.ts", "harness/*.ts", "harness/hooks/*.ts", "eval/run.ts"],
+  "project": ["src/**/*.{ts,tsx}", "harness/**/*.ts", "eval/**/*.ts"],
+  "ignoreExportsUsedInFile": true
+}
